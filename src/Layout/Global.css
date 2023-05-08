@@ -2,3 +2,24 @@
 html {
   font-family: "Josefin Sans", sans-serif;
 }
+.home-text h1 {
+  font-size: 100px;
+  font-weight: 700;
+  margin-bottom: 0px;
+}
+.home-text h2 {
+  font-size: 80px;
+  font-weight: 700;
+}
+.home-text h3 {
+  font-size: 32px;
+  font-weight: 700;
+}
+.login-button-home{
+  background-color: #0051B5;
+  color: white;
+  padding: 15px 40px 15px 40px;
+  margin-top: 30px;
+  border-radius: 6px;
+  font-weight: 600;
+}

@@ -5,16 +5,16 @@ export default function Navbar() {
   const menuItems = (
     <React.Fragment>
       <li>
-        <Link to="/">Home</Link>
+        <Link className="text-bold" to="/">Home</Link>
       </li>
       <li>
-        <Link to="/appointments">Appointment</Link>
+        <Link className="text-bold" to="/appointments">Appointment</Link>
       </li>
       <li>
-        <Link to="/about">About</Link>
+        <Link className="text-bold" to="/about">About</Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        <Link className="text-bold" to="/login">Login</Link>
       </li>
     </React.Fragment>
   );

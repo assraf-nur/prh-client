@@ -15,11 +15,14 @@ html {
   font-size: 32px;
   font-weight: 700;
 }
-.login-button-home{
-  background-color: #0051B5;
+.login-button-home {
+  background-color: #0051b5;
   color: white;
   padding: 15px 40px 15px 40px;
   margin-top: 30px;
   border-radius: 6px;
   font-weight: 600;
+}
+.appointment-page {
+  background-image: url(../../src/Assets/images/appointment.png);
 }

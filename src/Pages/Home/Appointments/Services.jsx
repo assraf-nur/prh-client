@@ -10,7 +10,7 @@ export default function Services({ service, setTreatment }) {
           <p>{slots.length > 0 ? slots[0] : "Try another day"}</p>
           <p>{slots.length} slots are available</p>
           <div className="card-actions justify-center">
-            <label htmlFor="booking-modal" className="btn btn-primary" onClick={() => setTreatment(service)}>
+            <label disabled={slots.length === 0} htmlFor="booking-modal" className="btn btn-primary" onClick={() => setTreatment(service)}>
               Book Appointments
             </label>
           </div>

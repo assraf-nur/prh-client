@@ -1,6 +1,7 @@
+import { format } from "date-fns";
 import React from "react";
 
-export default function BookingModal({ treatment }) {
+export default function BookingModal({ treatment, selectedDate }) {
   const { name } = treatment;
   return (
     <>
@@ -13,7 +14,7 @@ export default function BookingModal({ treatment }) {
           <h3 className="text-lg font-bold">{name}</h3>
           <div>
             <input type="text" className="input input-bordered w-full mt-4" />
-            <input type="text" className="input input-bordered w-full mt-4" />
+            <input type="text" value={format(selectedDate, "PP")} className="input input-bordered w-full mt-4" />
             <input type="text" className="input input-bordered w-full mt-4" />
             <input type="text" className="input input-bordered w-full mt-4" />
             <input type="text" className="input input-bordered w-full mt-4" />

@@ -24,7 +24,7 @@ export default function AvailableAppointments({ selectedDate }) {
           <Services key={service._id} service={service} setTreatment={setTreatment}></Services>
         ))}
       </div>
-      <BookingModal treatment={treatment} />
+      <BookingModal treatment={treatment} selectedDate={selectedDate}/>
     </div>
   );
 }

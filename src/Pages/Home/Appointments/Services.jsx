@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Services({ service }) {
+export default function Services({ service, setTreatment }) {
   const { name, slots } = service;
   return (
     <div className="mt-4">
@@ -10,7 +10,9 @@ export default function Services({ service }) {
           <p>{slots.length > 0 ? slots[0] : "Try another day"}</p>
           <p>{slots.length} slots are available</p>
           <div className="card-actions justify-center">
-            <button className="btn btn-primary">Book Appointments</button>
+            <label htmlFor="booking-modal" className="btn btn-primary" onClick={() => setTreatment(service)}>
+              Book Appointments
+            </label>
           </div>
         </div>
       </div>

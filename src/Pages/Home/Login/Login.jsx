@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
-  const [data, setData] = useState("");
+
+  const handleLogin = (data) => {
+    console.log(data);
+  };
+
   return (
     <div className="h-[800px] flex justify-center items-center bg-[#485164]">
       <div className="border w-[30%] p-16 rounded-xl shadow-lg bg-white">
         <h2 className="text-4xl mb-5">Login here</h2>
-        <form onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
+        <form onSubmit={handleSubmit(handleLogin)}>
           <div className="form-control w-full">
             <label className="label mb-0">
               <span className="label-text mb-[-8px]">Your Mail</span>

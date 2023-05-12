@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../Context/AuthProvider";
 
 export default function SignUp() {
   const {
@@ -9,9 +10,16 @@ export default function SignUp() {
     formState: { errors },
   } = useForm();
 
+  const { createUser } = useContext(AuthContext);
+
   const handleRegister = (data) => {
     console.log(data);
-    console.log(errors);
+    createUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -37,13 +45,13 @@ export default function SignUp() {
               <span className="label-text mb-[-8px]">Your Mail</span>
             </label>
             <input
-              type="mail"
-              {...register("mail", {
+              type="email"
+              {...register("email", {
                 required: "Mail is required",
               })}
               className="input input-bordered w-full mt-0"
             />
-            {errors.mail && <p className="text-red-500 mt-2 mb-[-15px]">{errors.mail.message}</p>}
+            {errors.email && <p className="text-red-500 mt-2 mb-[-15px]">{errors.email.message}</p>}
           </div>
           <div className="form-control w-full mt-2">
             <label className="label mb-0">

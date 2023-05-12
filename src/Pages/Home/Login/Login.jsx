@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import SignUp from "./../SignUp/SignUp";
+import { AuthContext } from "../../../Context/AuthProvider";
 
 export default function Login() {
   const {
@@ -9,8 +11,21 @@ export default function Login() {
     handleSubmit,
   } = useForm();
 
+  const { signIn } = useContext(AuthContext);
+  const [loginError, setLoginError] = useState("");
+
   const handleLogin = (data) => {
     console.log(data);
+    signIn(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setLoginError(error.message);
+      });
+      
   };
 
   return (
@@ -23,10 +38,10 @@ export default function Login() {
               <span className="label-text mb-[-8px]">Your Mail</span>
             </label>
             <input
-              {...register("mail", {
+              {...register("email", {
                 required: "Email is required",
               })}
-              type="mail"
+              type="email"
               className="input input-bordered w-full mt-0"
             />
             {errors.email && <p className="text-red-600">{errors.email?.message}</p>}
@@ -45,6 +60,7 @@ export default function Login() {
             {errors.password && <p className="text-red-600">{errors.password?.message}</p>}
           </div>
           <input className="mt-8 w-full bg-[#0051B5] text-white py-2 rounded-xl cursor-pointer" value="Login" type="submit" />
+          <div>{loginError && <p className="text-red-600">{loginError}</p>}</div>
         </form>
         <p className="text-[14px] mt-3 ms-2 text-semibold">
           New to Doctors Portal?{" "}

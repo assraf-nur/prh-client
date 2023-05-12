@@ -29,11 +29,18 @@ export default function Navbar() {
         </Link>
       </li>
       {user?.uid ? (
-        <li>
-          <button onClick={handleLogOut} className="text-bold" to="/login">
-            Log Out
-          </button>
-        </li>
+        <>
+          <li>
+            <Link className="text-bold" to="/dashboard">
+              Dashboard
+            </Link>
+          </li>
+          <li>
+            <button onClick={handleLogOut} className="text-bold" to="/login">
+              Log Out
+            </button>
+          </li>
+        </>
       ) : (
         <li>
           <Link className="text-bold" to="/login">

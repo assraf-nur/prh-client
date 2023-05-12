@@ -5,10 +5,10 @@ import BookingModal from "./BookingModal";
 
 export default function AvailableAppointments({ selectedDate }) {
   const [services, setServices] = useState([]);
-  const [treatment, setTreatment] = useState('');
+  const [treatment, setTreatment] = useState("");
 
   useEffect(() => {
-    fetch("service.json")
+    fetch("http://localhost:5000/appointmentOptions")
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
@@ -24,7 +24,7 @@ export default function AvailableAppointments({ selectedDate }) {
           <Services key={service._id} service={service} setTreatment={setTreatment}></Services>
         ))}
       </div>
-      <BookingModal treatment={treatment} selectedDate={selectedDate}/>
+      <BookingModal treatment={treatment} selectedDate={selectedDate} />
     </div>
   );
 }

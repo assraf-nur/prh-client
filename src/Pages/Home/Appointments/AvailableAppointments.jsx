@@ -1,15 +1,15 @@
 import { format } from "date-fns";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Services from "./Services";
 import BookingModal from "./BookingModal";
 import { useQuery } from "@tanstack/react-query";
 
 export default function AvailableAppointments({ selectedDate }) {
-  const [treatment, setTreatment] = useState("");
+  const [treatment, setTreatment] = useState('');
 
   const { data: services = [] } = useQuery({
     queryKey: ["appointmentOptions"],
-    queryFn: () => fetch("http://localhost:5000/appointmentOptions").then((res) => res.json()),
+    queryFn: () => fetch("http://localhost:5000/appointmentOptions").then((res) => res.json())
   });
 
   return (
@@ -23,7 +23,7 @@ export default function AvailableAppointments({ selectedDate }) {
           <Services key={service._id} service={service} setTreatment={setTreatment}></Services>
         ))}
       </div>
-      <BookingModal treatment={treatment} selectedDate={selectedDate} />
+      <BookingModal treatment={treatment} setTreatment={setTreatment} selectedDate={selectedDate} />
     </div>
   );
 }

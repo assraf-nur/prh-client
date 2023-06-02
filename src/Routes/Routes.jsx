@@ -5,8 +5,10 @@ import Login from "../Pages/Home/Login/Login";
 import About from "../Pages/Home/About/About";
 import Appointments from "../Pages/Home/Appointments/Appointments";
 import SignUp from "../Pages/Home/SignUp/SignUp";
-import Dashboard from "../Pages/Dashboard/Dashboard";
 import PrivateRoute from "./PrivateRoute";
+import DashboardLayout from "../Layout/DashboardLayout";
+import Dashboard from "../Pages/Dashboard/Dashboard";
+import MyAppointments from "../Pages/Dashboard/MyAppointments";
 
 export const router = createBrowserRouter([
   {
@@ -37,10 +39,16 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: (
+    element:
       <PrivateRoute>
-        <Dashboard></Dashboard>
+        <DashboardLayout></DashboardLayout>
       </PrivateRoute>
-    ),
+    ,
+    children: [
+      {
+        path: '/dashboard',
+        element: <MyAppointments/>
+      }
+    ]
   },
 ]);

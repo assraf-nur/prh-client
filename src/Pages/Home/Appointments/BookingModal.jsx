@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import React, { useContext } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 export default function BookingModal({ treatment, selectedDate, refetch }) {
   const { name: treatmentName, slots } = treatment;
@@ -35,17 +36,24 @@ export default function BookingModal({ treatment, selectedDate, refetch }) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        form.reset();
-        const modalCheckbox = document.getElementById("booking-modal");
-        modalCheckbox.checked = !modalCheckbox.checked;
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Your booking is saved",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        refetch();
+        if (data.acknowledged === false) {
+          form.reset();
+          const modalCheckbox = document.getElementById("booking-modal");
+          modalCheckbox.checked = !modalCheckbox.checked;
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your booking is saved",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          refetch();
+        }
+        else {
+          Swal.fire('You already have an appointment on this day')
+          const modalCheckbox = document.getElementById("booking-modal");
+          modalCheckbox.checked = !modalCheckbox.checked;
+        }
       });
   };
   return (

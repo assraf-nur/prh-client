@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
 import Swal from "sweetalert2";
 
-export default function BookingModal({ treatment, selectedDate }) {
+export default function BookingModal({ treatment, selectedDate, refetch }) {
   const { name: treatmentName, slots } = treatment;
   const { user } = useContext(AuthContext);
 
@@ -45,6 +45,7 @@ export default function BookingModal({ treatment, selectedDate }) {
           showConfirmButton: false,
           timer: 1500,
         });
+        refetch();
       });
   };
   return (

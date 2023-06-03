@@ -5,6 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 export default function MyAppointments() {
 
   const { user } = useContext(AuthContext);
+
+  
   const url = `http://localhost:5000/bookings?email=${user?.email}`
 
   const { data: bookings = [] } = useQuery({

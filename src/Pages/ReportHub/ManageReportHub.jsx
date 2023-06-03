@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../../Context/AuthProvider';
 
 
 export default function ManageReportHub() {
@@ -13,6 +14,7 @@ export default function ManageReportHub() {
         handleSubmit,
     } = useForm();
     const imageHostKey = process.env.REACT_APP_imagebb_key;
+    const { user } = useContext(AuthContext);
 
     const handleReportUpload = (data) => {
         const image = data.image[0];
@@ -29,7 +31,8 @@ export default function ManageReportHub() {
                 if (imgData.success) {
                     const report = {
                         image: imgData.data.url,
-                        details: data.details
+                        details: data.details,
+                        email: user.email
                     }
 
                     fetch('http://localhost:5000/reports', {
@@ -57,10 +60,12 @@ export default function ManageReportHub() {
             })
     }
 
+    const url = `http://localhost:5000/reports?email=${user?.email}`
+
     const { data: reports = [], refetch } = useQuery({
-        queryKey: ['reports'],
+        queryKey: ['reports', user?.email],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/reports');
+            const res = await fetch(url);
             const data = await res.json();
             return data;
         }
@@ -130,22 +135,26 @@ export default function ManageReportHub() {
                             </tr>
                         </thead>
                         <tbody>
-                            {
-                                reports?.map((report, i) =>
-                                    <tr>
-                                        <th>{i + 1}</th>
-                                        <td><div className="avatar">
+                            {reports?.map((report, i) => (
+                                <tr key={i}>
+                                    <th style={{ width: '5%' }}>{i + 1}</th>
+                                    <td style={{ width: '10%' }}>
+                                        <div className="avatar">
                                             <div className="w-24">
                                                 <img src={report.image} alt="" />
                                             </div>
-                                        </div></td>
-                                        <td>{report.details}</td>
-                                        <td>
-                                            <button onClick={() => handleDeleteReport(report)} htmlFor="confirmation-modal" className='btn btn-xs btn-danger'>Delete</button>
-                                        </td>
-                                    </tr>
-                                )
-                            }
+                                        </div>
+                                    </td>
+                                    <td style={{ width: '35%' }} className="w-[50px] h-[50px] overflow-auto">
+                                        <div style={{ maxWidth: '100px', maxHeight: '100px' }}>{report.details}</div>
+                                    </td>
+                                    <td style={{ width: '5%' }}>
+                                        <button onClick={() => handleDeleteReport(report)} className="btn btn-xs btn-danger">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>

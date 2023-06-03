@@ -8,7 +8,7 @@ export default function ReportHub() {
 
     const url = `http://localhost:5000/reports?email=${user?.email}`
 
-    const { data: reports = [], refetch } = useQuery({
+    const { data: reports = [] } = useQuery({
         queryKey: ['reports', user?.email],
         queryFn: async () => {
             const res = await fetch(url);

@@ -38,15 +38,9 @@ export default function ReportHub() {
     return (
         <div className="h-screen">
             <div className="grid grid-cols-6 gap-2">
-                <div className="col-span-3 bg-[#4c54667e] p-4 relative overflow-auto h-[75%]">
+                <div className="col-span-3 bg-[#4c54667e] p-4 relative overflow-auto h-[78%]">
                     <div className="grid grid-cols-3 gap-4">
                         {reports.map(report => (
-                            // <div className="card bg-base-100 shadow-xl">
-                            //     <figure><img src={report.image} alt="Shoes" /></figure>
-                            //     <div className="card-body">
-                            //         <p>{report.details}</p>
-                            //     </div>
-                            // </div>
                             <div
                                 className="card bg-base-100 shadow-xl"
                                 key={report._id}
@@ -64,6 +58,8 @@ export default function ReportHub() {
                         ))}
                     </div>
                 </div>
+
+
                 <Link className="absolute bottom-2 left-[20%] bg-slate-800 text-white px-24 py-2 rounded" to='/dashboard/manage-report-hub'>Manage Reports</Link>
                 <div className="col-span-3 bg-[#4c54667e] p-4 relative">
                     <div className="flex justify-between overflow-auto">

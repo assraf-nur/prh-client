@@ -7,10 +7,10 @@ import Appointments from "../Pages/Home/Appointments/Appointments";
 import SignUp from "../Pages/Home/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../Layout/DashboardLayout";
-import Dashboard from "../Pages/Dashboard/Dashboard";
 import MyAppointments from "../Pages/Dashboard/MyAppointments";
 import AllUsers from "../Pages/Dashboard/AllUsers";
 import AddDoctor from "../Pages/Dashboard/AddDoctor";
+import ManageDoctor from "../Pages/Dashboard/ManageDoctor";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +58,10 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard/adddoctor',
         element: <AddDoctor />
+      },
+      {
+        path: '/dashboard/manage-doctor',
+        element: <ManageDoctor />
       }
     ]
   },

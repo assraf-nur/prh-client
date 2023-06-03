@@ -19,6 +19,8 @@ export default function DashboardLayout() {
                     <label for="my-drawer-2" class="drawer-overlay"></label>
                     <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
                         <li><Link to='/dashboard'>My Appointments</Link></li>
+                        <li><Link to='/dashboard/manage-report-hub'>Manage Reports</Link></li>
+                        <li><Link to='/dashboard/manage-prescription'>Manage Prescriptions</Link></li>
                         {
                             isAdmin && <>
                                 <li><Link to='/dashboard/allUsers'>All Users</Link></li>

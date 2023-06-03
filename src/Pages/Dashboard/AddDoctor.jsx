@@ -59,6 +59,7 @@ export default function AddDoctor() {
                                 showConfirmButton: false,
                                 timer: 1500
                             })
+                            document.getElementById("doctor-adding-form").reset();
                         })
 
                 }
@@ -72,7 +73,7 @@ export default function AddDoctor() {
     return (
         <div>
             <h3 className='text-2xl'>Add Doctor</h3>
-            <form onSubmit={handleSubmit(handleAddDoctor)} className='ms-5'>
+            <form id='doctor-adding-form' onSubmit={handleSubmit(handleAddDoctor)} className='ms-5'>
                 <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Name</span></label>
                     <input type="text" {...register("name", {

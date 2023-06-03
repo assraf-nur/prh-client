@@ -7,7 +7,7 @@ export default function Navbar() {
 
   const handleLogOut = () => {
     logOut()
-      .then(() => {})
+      .then(() => { })
       .catch((err) => console.log(err.message));
   };
 
@@ -24,8 +24,8 @@ export default function Navbar() {
         </Link>
       </li>
       <li>
-        <Link className="text-bold" to="/about">
-          About
+        <Link className="text-bold" to="/report-hub">
+          Report Hub
         </Link>
       </li>
       {user?.uid ? (

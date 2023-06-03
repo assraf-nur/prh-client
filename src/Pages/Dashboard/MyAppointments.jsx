@@ -33,7 +33,7 @@ export default function MyAppointments() {
           <tbody>
             {
               bookings?.map((booking, index) =>
-                <tr>
+                <tr key={booking._id}>
                   <th>{index + 1}</th>
                   <td>{booking.patient}</td>
                   <td>{booking.treatment}</td>

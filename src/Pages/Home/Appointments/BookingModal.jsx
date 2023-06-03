@@ -36,7 +36,7 @@ export default function BookingModal({ treatment, selectedDate, refetch }) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data.acknowledged === false) {
+        if (data.acknowledged) {
           form.reset();
           const modalCheckbox = document.getElementById("booking-modal");
           modalCheckbox.checked = !modalCheckbox.checked;

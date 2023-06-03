@@ -38,7 +38,7 @@ export default function ReportHub() {
     return (
         <div className="h-screen">
             <div className="grid grid-cols-6 gap-2">
-                <div className="col-span-3 bg-[#4c54667e] p-4 relative overflow-auto h-[78%]">
+                <div className="col-span-3 bg-[#4c54667e] p-5 relative overflow-auto h-screen">
                     <div className="grid grid-cols-3 gap-4">
                         {reports.map(report => (
                             <div
@@ -52,7 +52,7 @@ export default function ReportHub() {
                                     <img src={report.image} alt="Shoes" />
                                 </figure>
                                 <div className="card-body">
-                                    <p>{report.details}</p>
+                                    <p className="card-details break-words">{report?.details}</p>
                                 </div>
                             </div>
                         ))}
@@ -75,7 +75,7 @@ export default function ReportHub() {
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
                     <div className="bg-white p-4 max-w-md">
                         <img src={selectedImage} alt="Preview" className="mb-4" />
-                        <p>{selectedDetails}</p>
+                        <p className='break-words'>{selectedDetails}</p>
                         <div className="flex justify-between mt-4">
                             <button
                                 className="bg-blue-500 text-white px-4 py-2 rounded"

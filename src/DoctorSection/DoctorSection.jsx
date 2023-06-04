@@ -1,9 +1,10 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 export default function DoctorSection() {
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState('');
     const [reports, setReports] = useState([]);
+    const [prescriptions, setPrescriptions] = useState([]);
     const [selectedImage, setSelectedImage] = useState('');
     const [selectedDetails, setSelectedDetails] = useState('');
 
@@ -14,22 +15,16 @@ export default function DoctorSection() {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/reports/search?email=${email}`);
-            setReports(response.data);
-            console.log(response.data);
+            const responseReports = await axios.get(`http://localhost:5000/reports/search?email=${email}`);
+            setReports(responseReports.data);
+            const responsePrescriptions = await axios.get(`http://localhost:5000/prescriptions?email=${email}`);
+            setPrescriptions(responsePrescriptions.data);
+            console.log('Reports:', responseReports.data);
+            console.log('Prescriptions:', responsePrescriptions.data);
         } catch (error) {
-            console.error('Error searching reports:', error);
+            console.error('Error searching reports and prescriptions:', error);
         }
     };
-
-    // const handleDownload = () => {
-    //     const link = document.createElement('a');
-    //     link.href = selectedImage;
-    //     link.setAttribute('download', 'image.jpg');
-    //     document.body.appendChild(link);
-    //     link.click();
-    //     document.body.removeChild(link);
-    // };
 
     const handleFullScreen = () => {
         window.open(selectedImage);
@@ -51,21 +46,20 @@ export default function DoctorSection() {
                 >
                     Search
                 </button>
+            </div>
 
-
-                <h2 className='mt-8 text-2xl'>Reports:</h2>
-                <div className="col-span-3 bg-[#4c54667e] p-5 relative overflow-auto h-screen rounded-2xl">
+            <div className="grid grid-cols-2 gap-8 mt-8">
+                <div>
+                    <h2 className='text-2xl mb-4'>Reports:</h2>
                     <div className="grid grid-cols-3 gap-4">
                         {reports.map(report => (
                             <div
-                                className="card bg-base-100 shadow-xl cursor-pointer w-25"
+                                className="card bg-base-100 shadow-xl cursor-pointer"
                                 key={report._id}
-                                onClick={() =>
-                                    handleCardClick(report.image, report.details)
-                                }
+                                onClick={() => handleCardClick(report.image, report.details)}
                             >
                                 <figure>
-                                    <img src={report.image} alt="Shoes" />
+                                    <img src={report.image} alt="Report" />
                                 </figure>
                                 <div className="card-body">
                                     <p className="card-details break-words">{report?.details}</p>
@@ -74,12 +68,33 @@ export default function DoctorSection() {
                         ))}
                     </div>
                 </div>
+
+                <div>
+                    <h2 className='text-2xl mb-4'>Prescriptions:</h2>
+                    <div className="grid grid-cols-3 gap-4">
+                        {prescriptions.map(prescription => (
+                            <div
+                                className="card bg-base-100 shadow-xl cursor-pointer"
+                                key={prescription._id}
+                                onClick={() => handleCardClick(prescription.image, prescription.details)}
+                            >
+                                <figure>
+                                    <img src={prescription.image} alt="Prescription" />
+                                </figure>
+                                <div className="card-body">
+                                    <p className="card-details break-words">{prescription?.details}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
+
             {selectedImage && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                    <div className="bg-white p-4 max-w-md">
-                        <img src={selectedImage} alt="Preview" className="mb-4" />
-                        <p className='break-words'>{selectedDetails}</p>
+                    <div className="bg-white p-4 max-w-md rounded-2xl">
+                        <img src={selectedImage} alt="Preview" className="mb-4 rounded-2xl" />
+                        <p className="break-words">{selectedDetails}</p>
                         <div className="flex justify-between mt-4">
                             <button
                                 className="bg-blue-500 text-white px-4 py-2 rounded"
@@ -101,5 +116,5 @@ export default function DoctorSection() {
                 </div>
             )}
         </div>
-    )
+    );
 }

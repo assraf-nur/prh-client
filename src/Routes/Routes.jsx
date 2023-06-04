@@ -14,6 +14,7 @@ import ManageDoctor from "../Pages/Dashboard/ManageDoctor";
 import ReportHub from "../Pages/ReportHub/ReportHub";
 import ManageReportHub from "../Pages/ReportHub/ManageReportHub";
 import ManagePrescriptions from "../Pages/ReportHub/ManagePrescriptions";
+import DoctorSection from "../DoctorSection/DoctorSection";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp></SignUp>,
+      },
+      {
+        path: "/doctor-section",
+        element: <DoctorSection />,
       },
     ],
   },

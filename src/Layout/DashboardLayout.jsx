@@ -6,8 +6,8 @@ import { AuthContext } from '../Context/AuthProvider'
 
 export default function DashboardLayout() {
     const { user } = useContext(AuthContext);
-    const [isAdmin] = useAdmin(user?.email)
-    
+    const [isAdmin] = useAdmin(user?.email);
+
     return (
         <div className='container mx-auto'>
             <Navbar />

@@ -1,22 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { AuthContext } from '../../Context/AuthProvider';
+import axios from 'axios';
+import React, { useState } from 'react'
 
-export default function ReportHub() {
-    const { user } = useContext(AuthContext);
-
-    const url = `http://localhost:5000/reports?email=${user?.email}`
-
-    const { data: reports = [] } = useQuery({
-        queryKey: ['reports', user?.email],
-        queryFn: async () => {
-            const res = await fetch(url);
-            const data = await res.json();
-            return data;
-        }
-    })
-
+export default function DoctorSection() {
+    const [email, setEmail] = useState("");
+    const [reports, setReports] = useState([]);
     const [selectedImage, setSelectedImage] = useState('');
     const [selectedDetails, setSelectedDetails] = useState('');
 
@@ -25,24 +12,53 @@ export default function ReportHub() {
         setSelectedDetails(details);
     };
 
-    const handleDownload = () => {
-        const link = document.createElement('a');
-        link.href = selectedImage;
-        link.setAttribute('download', 'image.jpg');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    const handleSearch = async () => {
+        try {
+            const response = await axios.get(`http://localhost:5000/reports/search?email=${email}`);
+            setReports(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.error('Error searching reports:', error);
+        }
     };
 
+    // const handleDownload = () => {
+    //     const link = document.createElement('a');
+    //     link.href = selectedImage;
+    //     link.setAttribute('download', 'image.jpg');
+    //     document.body.appendChild(link);
+    //     link.click();
+    //     document.body.removeChild(link);
+    // };
+
+    const handleFullScreen = () => {
+        window.open(selectedImage);
+    };
 
     return (
-        <div className="h-screen">
-            <div className="grid grid-cols-6 gap-2">
-                <div className="col-span-3 bg-[#4c54667e] p-5 relative overflow-auto h-screen">
+        <div>
+            <div className='mt-8'>
+                <input
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter email"
+                    className="w-64 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                    onClick={handleSearch}
+                    className="px-4 py-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                >
+                    Search
+                </button>
+
+
+                <h2 className='mt-8 text-2xl'>Reports:</h2>
+                <div className="col-span-3 bg-[#4c54667e] p-5 relative overflow-auto h-screen rounded-2xl">
                     <div className="grid grid-cols-3 gap-4">
                         {reports.map(report => (
                             <div
-                                className="card bg-base-100 shadow-xl cursor-pointer"
+                                className="card bg-base-100 shadow-xl cursor-pointer w-25"
                                 key={report._id}
                                 onClick={() =>
                                     handleCardClick(report.image, report.details)
@@ -58,19 +74,7 @@ export default function ReportHub() {
                         ))}
                     </div>
                 </div>
-
-
-                <Link className="absolute bottom-2 left-[20%] bg-slate-800 text-white px-24 py-2 rounded" to='/dashboard/manage-report-hub'>Manage Reports</Link>
-                <div className="col-span-3 bg-[#4c54667e] p-4 relative">
-                    <div className="flex justify-between overflow-auto">
-                        <img className="w-20 h-20" src="image4.jpg" alt="Imag" />
-                        <img className="w-20 h-20" src="image5.jpg" alt="Imag" />
-                        <img className="w-20 h-20" src="image6.jpg" alt="Imag" />
-                    </div>
-                    <Link className="absolute bottom-2 left-[30%] bg-slate-800 text-white px-24 py-2 rounded" to='/dashboard/manage-prescription'>Manage Prescriptions</Link>
-                </div>
             </div>
-            {/* Preview Modal */}
             {selectedImage && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
                     <div className="bg-white p-4 max-w-md">
@@ -79,7 +83,7 @@ export default function ReportHub() {
                         <div className="flex justify-between mt-4">
                             <button
                                 className="bg-blue-500 text-white px-4 py-2 rounded"
-                                onClick={handleDownload}
+                                onClick={handleFullScreen}
                             >
                                 Make Full Screen
                             </button>

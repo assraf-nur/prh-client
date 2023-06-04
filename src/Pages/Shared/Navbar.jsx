@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
+import useDoctor from "../../Hook/useDoctor";
 
 export default function Navbar() {
   const { user, logOut } = useContext(AuthContext);
+  const [isDoctor] = useDoctor(user?.email);
 
   const handleLogOut = () => {
     logOut()
@@ -30,6 +32,15 @@ export default function Navbar() {
       </li>
       {user?.uid ? (
         <>
+          <li>
+            {
+              isDoctor && <>
+                <Link className="text-bold" to="/doctor-section">
+                  Doctor Hub
+                </Link>
+              </>
+            }
+          </li>
           <li>
             <Link className="text-bold" to="/dashboard">
               Dashboard

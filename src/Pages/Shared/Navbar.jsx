@@ -20,16 +20,6 @@ export default function Navbar() {
           Home
         </Link>
       </li>
-      <li>
-        <Link className="text-bold" to="/appointments">
-          Appointment
-        </Link>
-      </li>
-      <li>
-        <Link className="text-bold" to="/report-hub">
-          Report Hub
-        </Link>
-      </li>
       {user?.uid ? (
         <>
           <li>
@@ -40,6 +30,16 @@ export default function Navbar() {
                 </Link>
               </>
             }
+          </li>
+          <li>
+            <Link className="text-bold" to="/appointments">
+              Appointment
+            </Link>
+          </li>
+          <li>
+            <Link className="text-bold" to="/report-hub">
+              Report Hub
+            </Link>
           </li>
           <li>
             <Link className="text-bold" to="/dashboard">
